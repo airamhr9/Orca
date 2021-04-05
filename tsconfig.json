@@ -14,10 +14,11 @@
     "module": "commonjs",
     "moduleResolution": "node",
     "noImplicitAny": true,
+    "esModuleInterop": true,
     "noImplicitThis": true,
     "strictNullChecks": true,
     "sourceMap": true,
-    "target": "esnext"
+    "target": "esnext",
   },
   "exclude": ["node_modules"]
 }
