@@ -30,7 +30,7 @@ const useStyles = makeStyles((theme: Theme) =>
         duration: theme.transitions.duration.leavingScreen,
       }),
       marginLeft: drawerWidth,
-      background: theme.palette.background.default,
+      background: "#2a2a2a"
     },
     appBarContent: {
       marginLeft: 65,

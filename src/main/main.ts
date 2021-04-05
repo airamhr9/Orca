@@ -5,6 +5,7 @@ import * as path from 'path';
 import * as url from 'url';
 import { BrowserWindow, app, Menu } from 'electron';
 import '../Backend/Services'
+import '../App/css/styles.module.css'
 
 let mainWindow: Electron.BrowserWindow | null;
 
