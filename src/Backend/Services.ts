@@ -7,6 +7,10 @@ const imageCommand : string = "docker images --format \"{{.Repository}}&{{.Tag}}
 const containerPsCommand : string = "docker ps --format \"{{.ID}}&{{.Names}}&{{.Image}}&{{.Status}}\"";
 const stoppedContainerPsCommand : string = "docker ps -a  --format \"{{.ID}}&{{.Names}}&{{.Image}}&{{.Status}}\"| grep Exit";
 const containerInspectCommand : string = "docker inspect ";
+const deleteCommand : string = "docker delete ";
+const startCommand : string = "docker start ";
+const restartCommand : string = "docker restart ";
+const pauseCommand : string = "docker stop ";
 
 export function printHelloWorld(){
     console.log("Hello World from electron backend");
@@ -28,7 +32,31 @@ function processContainers(command : string) : Container[]{
     return containerList;
 }
 
-export function containerInspect(id : string) : JSON{
+export function restartContainer(id : string) : boolean{
+    let salida = execSync(restartCommand + id);
+    console.log(salida.stdout);
+    return salida.stdout == id;
+}
+
+export function startContainer(id : string) : boolean{
+    let salida = execSync(startCommand + id);
+    console.log(salida.stdout);
+    return salida.stdout == id;
+}
+
+export function pauseContainer(id : string) : boolean{
+    let salida = execSync(pauseCommand + id);
+    console.log(salida.stdout);
+    return salida.stdout == id;
+}
+
+export function deleteContainer(id : string) : boolean{
+    let salida = execSync(deleteCommand + id);
+    console.log(salida.stdout);
+    return salida.stdout == id;
+}
+
+export function containerInspect(id : string) : object{
     let salida = execSync(containerInspectCommand + id);
     let salidaJson = JSON.parse(salida.stdout);
     console.log(salidaJson[0]);
@@ -42,7 +70,6 @@ export function getDockerImages() : DockerImage[]{
     imageList = dockerImageListFactory(salida.stdout);
     return imageList;
 }
-
 
 function printResult(result : string){
     console.log(result);

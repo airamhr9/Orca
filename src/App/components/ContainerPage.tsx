@@ -34,7 +34,7 @@ function ContainerPage(){
           </Box>
           <Grid container item xs={12} spacing={3}>
             {runningContainers.map((container) => 
-              <Grid item>
+              <Grid item key={container.id}>
                 <ContainerCard id={container.id} name={container.name} image={container.image} status={container.status}/>
               </Grid>
             )} 
@@ -46,7 +46,7 @@ function ContainerPage(){
           </Box>
           <Grid container item xs={12} spacing={3}>
             {stoppedContainers.map((container) => 
-              <Grid item>
+              <Grid item key={container.id}>
                 <ContainerCard id={container.id} name={container.name} image={container.image} status={container.status}/>
               </Grid>
             )} 

@@ -154,10 +154,6 @@ export default function NavDrawer() {
               <ListItemIcon><NoteIcon /></ListItemIcon>
               <ListItemText primary='Images' />
             </ListItem>
-            <ListItem button key=' TemporaryDetails' component={Link} to={"/container_details"}>
-              <ListItemIcon><DetailsIcon /></ListItemIcon>
-              <ListItemText primary='TemporaryDetails' />
-            </ListItem>
         </List>
       </Drawer>
         <div className={classes.toolbar} />

@@ -4,7 +4,8 @@ import NavDrawer from './components/NavDrawer';
 import ImagePage from './components/ImagePage';
 import { HashRouter, Route } from 'react-router-dom';
 import ContainerPage from './components/ContainerPage';
-import InspectPage from './components/InspectPage';
+import ContainerInspect from './components/ContainerInspect';
+import ImageInspect from './components/ImageInspect';
 
 function App() {
 
@@ -34,7 +35,8 @@ function App() {
         <div>
           <Route path="/" exact component={ ContainerPage } />
           <Route path="/images" component={ ImagePage } />
-          <Route path="/container_details" component={ InspectPage } />
+          <Route path="/container_details" component={ ContainerInspect } />
+          <Route path="/image_details" component={ ImageInspect } />
         </div>
     </HashRouter>
     </ThemeProvider>
