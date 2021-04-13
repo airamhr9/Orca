@@ -4,10 +4,8 @@ import { createStyles, makeStyles, useTheme, Theme } from '@material-ui/core/sty
 import Drawer from '@material-ui/core/Drawer';
 import List from '@material-ui/core/List';
 import CssBaseline from '@material-ui/core/CssBaseline';
-import Typography from '@material-ui/core/Typography';
 import Divider from '@material-ui/core/Divider';
 import IconButton from '@material-ui/core/IconButton';
-import DetailsIcon from '@material-ui/icons/DetailsRounded';
 import MenuIcon from '@material-ui/icons/Menu';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import ListItem from '@material-ui/core/ListItem';
@@ -15,9 +13,11 @@ import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import NoteIcon from '@material-ui/icons/Note';
 import DockerIcon from './res/DockerIcon'
+import AddIcon from '@material-ui/icons/AddRounded';
 import { Link } from 'react-router-dom';
-import { AppBar, Box, Toolbar } from '@material-ui/core';
+import { AppBar, Box, Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Icon, TextField, Toolbar } from '@material-ui/core';
 const drawerWidth = 240;
+import DockerfileIcon from '@material-ui/icons/NoteAddRounded';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -74,7 +74,6 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     toolbar: {
       display: 'flex',
-      alignItems: 'center',
       justifyContent: 'flex-end',
       padding: theme.spacing(0, 0, 0, 11),
       // necessary for content to be below app bar
@@ -83,6 +82,9 @@ const useStyles = makeStyles((theme: Theme) =>
     content: {
       flexGrow: 1,
       padding: theme.spacing(3),
+    },
+    button: {
+      margin: theme.spacing(1),
     },
   }),
 );
@@ -100,15 +102,75 @@ export default function NavDrawer() {
     setOpen(false);
   };
 
+  const [dialogOpened, setOpenDialog] = React.useState(false);
+
+  const handleDialogOpen = () => {
+    setOpenDialog(true);
+  };
+
+  const handleDialogClose = () => {
+    setOpenDialog(false);
+  };
+
   return (
     <div className={classes.root}>
       <CssBaseline />
         <AppBar position="fixed" className={classes.appBar} elevation={0}>
           <Box border={1} borderLeft={0} borderTop={0} borderRight={0} borderColor="#1A1A1A">
             <Toolbar className={classes.appBarContent}>
-              <Typography variant="h6" noWrap>
-                Permanent drawer
-              </Typography>
+              <Box display="flex" flexGrow={1}>
+                <Box flexGrow={1}>
+                  <Button
+                    variant="contained"
+                    color="primary"
+                    className={classes.button}
+                    startIcon={<AddIcon/>}
+                    onClick={handleDialogOpen}
+                  >
+                    Add Image
+                  </Button>
+                </Box>
+                  <Button
+                    variant="contained"
+                    color="primary"
+                    className={classes.button}
+                    startIcon={<DockerfileIcon/>}
+                    onClick={handleDialogOpen}
+                  >
+                    Run Dockerfile
+                  </Button>
+              </Box>
+              <Dialog open={dialogOpened} onClose={handleDialogClose} aria-labelledby="form-dialog-title">
+                <DialogTitle id="form-dialog-title">Download Image</DialogTitle>
+                <DialogContent>
+                  <TextField
+                    autoFocus
+                    variant="outlined"
+                    margin="dense"
+                    id="name"
+                    label="Name *"
+                    fullWidth
+                  />
+                  <TextField
+                    autoFocus
+                    variant="outlined"
+                    margin="dense"
+                    id="label"
+                    label="Label"
+                    fullWidth
+                  />
+                </DialogContent>
+                <DialogActions>
+                  <Button onClick={handleDialogClose} color="primary">
+                    Cancel
+                  </Button>
+                  <Button onClick={handleDialogClose} color="primary">
+                    Download
+                  </Button>
+                </DialogActions>
+              </Dialog>
+
+
             </Toolbar>
           </Box>
         </AppBar>

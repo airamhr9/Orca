@@ -31,8 +31,15 @@ function ImagePage(){
             </Typography>
           </Box>
           <Grid container item xs={12} spacing={3}>
-            {dockerImages.map((image) => 
-              <Grid item>
+            { dockerImages.length == 0 ?
+              <Grid container item xs={12} alignContent="center"   alignItems="center"
+              justify="center">
+                <Typography>
+                  Empty
+                </Typography>
+              </Grid>
+            : dockerImages.map((image) => 
+              <Grid item key={image.id}>
                 <ImageCard id= {image.id} repository={image.repository} tag={image.tag} size={image.size} created={image.created}/>
               </Grid>
             )} 

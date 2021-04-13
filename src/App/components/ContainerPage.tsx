@@ -23,7 +23,6 @@ function ContainerPage(){
     setStoppedContainers(getStoppedContainers());
    }, []);
 
-
     return ( 
       <div>
         <Box ml={10}>
@@ -33,7 +32,14 @@ function ContainerPage(){
             </Typography>
           </Box>
           <Grid container item xs={12} spacing={3}>
-            {runningContainers.map((container) => 
+            { runningContainers.length == 0 ?
+              <Grid container item xs={12} alignContent="center"   alignItems="center"
+              justify="center">
+                <Typography>
+                  Empty
+                </Typography>
+              </Grid>
+            : runningContainers.map((container) => 
               <Grid item key={container.id}>
                 <ContainerCard id={container.id} name={container.name} image={container.image} status={container.status}/>
               </Grid>
@@ -45,7 +51,14 @@ function ContainerPage(){
             </Typography>
           </Box>
           <Grid container item xs={12} spacing={3}>
-            {stoppedContainers.map((container) => 
+            {stoppedContainers.length == 0 ? 
+              <Grid container item xs={12} alignContent="center"   alignItems="center"
+              justify="center">
+                <Typography>
+                  Empty
+                </Typography>
+              </Grid>
+             : stoppedContainers.map((container) => 
               <Grid item key={container.id}>
                 <ContainerCard id={container.id} name={container.name} image={container.image} status={container.status}/>
               </Grid>

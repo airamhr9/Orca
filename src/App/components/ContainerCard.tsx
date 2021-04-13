@@ -3,7 +3,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import Typography from '@material-ui/core/Typography';
-import { ButtonBase, CardHeader, Grid, IconButton, ListItemIcon, Menu, MenuItem } from '@material-ui/core';
+import { Box, ButtonBase, CardHeader, Grid, IconButton, ListItemIcon, Menu, MenuItem } from '@material-ui/core';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 import { Container } from '_/Backend/objects/container';
 import { useHistory } from 'react-router';
@@ -97,12 +97,14 @@ function ContainerCard({id, name, image, status} : Container) {
 
     return (
       <Card className={classes.card} variant="outlined">
-       <ButtonBase className={classes.cardAction} onClick={handleClick}>
+       <ButtonBase disableTouchRipple={true} className={classes.cardAction} onClick={handleClick}>
         <CardHeader
           title={
-            <Typography className={classes.card_body} color="textSecondary">
-                {status}
-            </Typography>
+            <Box mb={2}>
+              <Typography className={classes.card_body} color="textSecondary">
+                  {status}
+              </Typography>
+            </Box>
           }
           action={
             <div>
@@ -166,9 +168,6 @@ function ContainerCard({id, name, image, status} : Container) {
         </ButtonBase>
       </Card>
     );
-}
-
-function goToInspect(id : string){
 }
 
 export default ContainerCard;

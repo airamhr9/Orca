@@ -1,4 +1,4 @@
-import { Box, Card, CardContent, CardHeader, colors, Container, Grid, makeStyles, Paper, Tab, Tabs, Typography } from '@material-ui/core';
+import { Box, Button, Card, CardContent, CardHeader, Theme, Container, Grid, makeStyles, Paper, Tab, Tabs, Typography, createStyles } from '@material-ui/core';
 import React, { useEffect, useState } from 'react';
 import ReactJson from 'react-json-view';
 import { useLocation } from 'react-router';
@@ -6,38 +6,50 @@ import { containerInspect } from '_/Backend/Services';
 import DetailsTable from './DetailsTable';
 import ImageTable from './ImageTable';
 import NetworkTable from './NetworkTable';
+import StartIcon from '@material-ui/icons/PlayArrowRounded';
+import DeleteIcon from '@material-ui/icons/DeleteRounded';
+import RestartIcon from '@material-ui/icons/ReplayRounded';
+import PauseIcon from '@material-ui/icons/PauseRounded';
+import CheckIcon from '@material-ui/icons/CheckRounded';
 
-const useStyles = makeStyles({
-  header: {
-    backgroundColor: '#2a2a2a'
-  },
-  statusCard: {
-    maxHeight: 40,
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-  }, 
-  content: {
-    margin: 15
-  },
-  tab: {
-    flexGrow: 1,
-  }, 
-  preStyle: {
-    whiteSpace: 'pre-wrap', 
-    wordWrap:'break-word',
-    margin: 15
-  },
-  card: {
-    borderRadius: 15,
-    borderColor: "#1A1A1A"
-  },
-  jsonCard: {
-    borderRadius: 15,
-    borderColor: "#1A1A1A",
-    backgroundColor: '#1E1E1E'
-  }
-});
+const useStyles = makeStyles((theme : Theme) => 
+  createStyles({
+    header: {
+      backgroundColor: '#2a2a2a'
+    },
+    statusCard: {
+      maxHeight: 40,
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center',
+    }, 
+    content: {
+      margin: 15
+    },
+    tab: {
+      flexGrow: 1,
+    }, 
+    preStyle: {
+      whiteSpace: 'pre-wrap', 
+      wordWrap:'break-word',
+      margin: 15
+    },
+    card: {
+      borderRadius: 15,
+      borderColor: "#1A1A1A"
+    },
+    jsonCard: {
+      borderRadius: 15,
+      borderColor: "#1A1A1A",
+      backgroundColor: '#1E1E1E'
+    },
+    buttonRow: {
+      '& > *': {
+        margin: theme.spacing(1),
+      },
+    }
+  })
+);
 
 
 interface LocationState {
@@ -109,14 +121,38 @@ function ContainerInspect() {
        break;
      default:
      case 'Paused':
-       color = '#ff8f00'
+       color = '#bc5100'
    }
 
 
     return(
         <div>
           <div className={classes.header}>
-            <Box ml={10} paddingTop={2}>
+            <Box ml={9} paddingTop={2}>
+              <Box display="flex" mr={5} mb={2}>
+                <Box flexGrow={1} className={classes.buttonRow}>
+                  {location.state.status.startsWith("Up") ?
+                    <Button startIcon={<PauseIcon/>} variant="contained" color="primary" style={{backgroundColor: "#bc5100"}}>
+                      Pause
+                    </Button>
+                    : 
+                    <Button startIcon={<StartIcon/>} variant="contained" color="primary" style={{backgroundColor: "#2e7d32"}}>
+                      Start
+                    </Button>
+                  }
+                  <Button startIcon={<RestartIcon/>} disabled={state != "Running"} variant="contained" color="secondary" style={{backgroundColor: "#01579b"}}>
+                    Restart
+                  </Button>
+                  <Button startIcon={<CheckIcon/>} variant="contained" color="secondary" style={{backgroundColor: "#283593"}}>
+                    Commit
+                  </Button>
+                </Box>
+                <Button startIcon={<DeleteIcon/>} variant="contained" color="primary" style={{alignSelf: "flex-end", backgroundColor: "#373737"}} >
+                  Delete
+                </Button>
+              </Box>
+            </Box>
+            <Box ml={10}>
               <Box mr={5} fontWeight={900}>
                 <Grid container direction="row" justify="space-between" alignItems="center" >
                   <Typography variant="h3" color={'textPrimary'}>
@@ -196,3 +232,31 @@ function ContainerInspect() {
 
 
 export default ContainerInspect;
+
+
+/*
+OTRA OPCIÓN BARRA BOTONES
+            <Box ml={9} paddingTop={2}>
+              <Box display="flex" mr={5} mb={1}>
+                <Box flexGrow={1} className={classes.buttonRow}>
+                  {location.state.status.startsWith("Up") ?
+                    <IconButton>
+                      <PauseIcon/>
+                    </IconButton>
+                    : 
+                    <IconButton>
+                      <StartIcon/>
+                    </IconButton>
+                  }
+                    <IconButton>
+                      <RestartIcon/>
+                    </IconButton>
+                </Box>
+                    <IconButton>
+                      <DeleteIcon/>
+                    </IconButton>
+              </Box>
+            </Box>
+
+
+*/
